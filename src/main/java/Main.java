@@ -32,24 +32,23 @@ public class Main {
       int length = array.length;
       //First Message
       if(attempt == 0){
-        Message message = Message.creator(new PhoneNumber("whatsapp:+919456609191"),
-            new PhoneNumber("whatsapp:+14155238886"), "Hello there, Since I know I have messed up in numerous ways, here is a way for me to have some redemption."
-                + "I have created this app that will send you randomized images every 15 mins, I Think it will send about 5-6 images. Hope you'll like it!!").create();
+        Message message = Message.creator(new PhoneNumber(TwilioConfig.twilioTo),
+            new PhoneNumber(TwilioConfig.twilioFrom), "Your First Message").create();
 
         System.out.println(message.getSid());
       }
       else {
         Object randomEntry = array[attempt];
-        Message message = Message.creator(new PhoneNumber("whatsapp:+919456609191"),
-            new PhoneNumber("whatsapp:+14155238886"), randomEntry.toString())
+        Message message = Message.creator(new PhoneNumber(TwilioConfig.twilioTo),
+            new PhoneNumber(TwilioConfig.twilioFrom), randomEntry.toString())
             .setMediaUrl(Arrays.asList(URI.create(map.get(randomEntry).toString()))).create();
         System.out.println(message.getSid());
       }
 
       attempt++;
       if(attempt >= length){
-        Message message = Message.creator(new PhoneNumber("whatsapp:+919456609191"),
-            new PhoneNumber("whatsapp:+14155238886"), "This took a lot of effort, appreciate it").create();
+        Message message = Message.creator(new PhoneNumber(TwilioConfig.twilioTo),
+            new PhoneNumber(TwilioConfig.twilioFrom), "This took a lot of effort, appreciate it").create();
         System.out.println(message.getSid());
         executorService.shutdown();
       }
